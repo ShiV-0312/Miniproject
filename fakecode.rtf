@@ -1,0 +1,217 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil Calibri;}}
+{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 from textblob.classifiers import NaiveBayesClassifier\par
+from textblob import TextBlob\par
+import time\par
+\par
+\par
+# train = [\par
+#     ('I love this sandwich.', 'pos'),\par
+#     ('this is an amazing place!', 'pos'),\par
+#     ('I feel very good about these beers.', 'pos'),\par
+#     ('this is my best work.', 'pos'),\par
+#     ("what an awesome view", 'pos'),\par
+#     ('I do not like this restaurant', 'neg'),\par
+#     ('I am tired of this stuff.', 'neg'),\par
+#     ("I can't deal with this", 'neg'),\par
+#     ('he is my sworn enemy!', 'neg'),\par
+#     ('my boss is horrible.', 'neg')\par
+#  ]\par
+# test = [\par
+#     ('the beer was good.', 'pos'),\par
+#     ('I do not enjoy my job', 'neg'),\par
+#     ("I ain't feeling dandy today.", 'neg'),\par
+#     ("I feel amazing!", 'pos'),\par
+#     ('Gary is a friend of mine.', 'pos'),\par
+#     ("I can't believe I'm doing this.", 'neg')\par
+#  ]\par
+\par
+\par
+def detector():\par
+\par
+    train = [\par
+\par
+                ('Says the Annies List political group supports third-trimester abortions on demand.', 'false'),\par
+                ('Donald Trump is against marriage equality. He wants to go back.', 'true'),\par
+                ('Says nearly half of Oregons children are poor.', 'true'),\par
+                ('State revenue projections have missed the mark month after month.', 'true'),\par
+                ("In the month of January, Canada created more new jobs than we did.", 'true'),\par
+                ('If people work and make more money, they lose more in benefits than they would earn in salary.', 'false'),\par
+                ('Originally, Democrats promised that if you liked your health care plan, you could keep it. One year later we know that you need a waiver to keep your plan.', 'false'),\par
+                ("We spend more money on antacids than we do on politics.", 'false'),\par
+                ('Barack Obama and Joe Biden oppose new drilling at home and oppose nuclear power.', 'false'),\par
+                ('President Obama once said he wants everybody in America to go to college.', 'false'),\par
+                ("Hair and fingernails continue to grow after death","False"),\par
+                ("Pineapples take two years to grow","True"),\par
+                ("There are more tigers in captivity in the US than in the wild worldwide","True"),\par
+                ("A typical cumulus cloud weighs about one million one hundred thousand pounds","True"),\par
+                ("Cheetahs cannot roar they can only meow like domestic house cats","True"),\par
+                ("Maine is the closest US state to the continent of Africa","True"),\par
+                ("Scientists who work with cockroaches often become allergic to preground coffee","True"),\par
+                ("You can see The Great Wall of China from Space","False"),\par
+                ("Cracking your knuckles will give you arthritis","False"),\par
+                ("Around the world many militaries have trained combat dolphins to perform dangerous tasks like locating underwater mines","True"),\par
+                ("Bananas are berries","True"),\par
+                ("Strawberries are not Berries","True"),\par
+                ("Sharks Predate Trees","True"),\par
+                ("A bear that fought with Poland in World War II was promoted to the rank of a corporal","True"),\par
+                ("There are more trees on earth than there are stars in the galaxy","True"),\par
+                ("Harvard was founded before calculus was created","True"),\par
+                ("Oxford University is older than the Aztec Empire","True"),\par
+                ("More people live in Bangladesh than in Russia","True"),\par
+                ("Raindrops are tear shaped.","False"),\par
+                ("You cannot start a sentence with a conjunction","False"),\par
+                ("Deoxygenated blood is blue","False"),\par
+                ("Humans only use ten percent of their brains","False"),\par
+                ("Bats are blind","False"),\par
+                ("An apple a day keeps the doctor away","False"),\par
+                ("Adam and Eve Ate an Apple","True"),\par
+                ("Weed Kills Corona Virus","False"),\par
+                ("Dettol and Lizol can kill Corona Virus","False"),\par
+                ("Consumption of Santizer is advised to kill Corona Virus","False"),\par
+                 ("Stomach acid will kill all the viruses","False"),\par
+                ("Slices of lemon in a cup of lukewarm water can save your life ","False"),\par
+                ("Ginger is the miracle cure for Corona Virus ","False"),\par
+                ("Cutting onions into small pieces and eating without water can cure Corona Virus ","False"),\par
+                 ("Corona Virus vaccine is ready and will be launched by the pharmaceutical giant Roche by next Sunday","False"),\par
+                ("Clapping or  shankh vibrations will destroy Virus potency ","False"),\par
+                 ("Corona Virus Virus will be killed at a temperature of thirty to thirty five degrees", "False"),\par
+                ("Drinking more hot water and going under the sun for a long time will prevent Corona","False"),\par
+                ("Drinking warm water is effective for mostly all viruses","False"),\par
+                ("Drinking Cold items or Ice will lead you to Corona" ,"False"),\par
+                ("Cashews grow on the bottom of a fruit called a cashew apple","True"),\par
+                ("Honey Never Expires","True"),\par
+                ("Baby Carrots were invented in the year nineteen eighty six","True"),\par
+                ("Chameleons change colors to camouflage themselves","False"),\par
+                ("Christopher Columbus discovered America","False"),\par
+                ("Abraham Lincoln freed the slaves","False"),\par
+                  ("Goldfish has a three second memory","False"),\par
+                ("Alcohol Keeps you Warm","False"),\par
+                ("All your Fingernails Grow at the same rate","False"),\par
+                ("Everest is the Tallest Mountain","False"),\par
+                ("Dogs Sweat by Salvating","False"),\par
+                ("Shaving Thickens Hair","False"),\par
+                ("The 1st case of COVID-19 was spotted in Kerala in India", "True"),\par
+("At least 53 people are killed in\~communal riots\~in parts of\~Delhi in February","True"),\par
+("March 22 \f1\endash\~Janta Curfew: India observed a 14-hour lockdown to prevent the spread of the COVID-19 pandemic", "True"),\par
+("13 people were killed from a\~gas leak\~at a chemical plant in\~Visakhapatnam,\~Andhra Pradesh", "True"),\par
+("In June, Cyclone Nisarga\~hit the western coast of India, causing damage in the state of\~Maharashtra", "True"),\par
+("Indian Government bans 59 Chinese Apps including\~TikTok,\~CamScanner,\~SHAREit\~and\~UC Browser", "True"),\par
+("In July 17, Number of confirmed cases of\~COVID-19\~reach 1 million.", "True"),\par
+("Trump won the 2020 elections", "False"), \par
+("Joe Biden is the 46th President of USA", "True"),\par
+("Kamala Harris is the Vice President of the USA", "True"),\par
+("Air India Express Flight 1344\~Crashed after overrunning the Runway at\~Calicut International Airport,\~Kerala.", "True"),\par
+("19 people were killed in the Air India Express flight crash including two pilots and 17 Passengers.", "True"),\par
+('Heavy Landslide in\~Munnar, Idukki District,\~Kerala where 24 killed, 40 trapped and NDRF teams carry out rescue ops', 'True'),\par
+('On August 9, Fire\~at a\~COVID-19\~facility in the city of\~Vijayawada,\~Andhra Pradesh, killed 11 people and left 22 injured.', 'True'),\par
+("maximum rape cases were reported from Rajasthan and Uttar Pradesh in 2020","True")]\par
+    test = [\par
+                ("A Penny dropped from the top of the empire state building will kill you","False"),\par
+                ("Van Gogh cut off his ear in a fit of madness for a woman","False"),\par
+                ("It takes seven years for your body to digest a piece of gum","False"),\par
+                ("Walt Disney's body is cryogenically frozen","False"),\par
+                ("Paul Revere help up the lanterns in the Old North Church","False"),\par
+                ("On Average You Swallow eight spiders a year in your sleep","False"),\par
+                ("When briefed on those suffering in her kingdom Marie Antoinette replied Let them eat cake","False"),\par
+                ("A woman named Violet Jessop survived the sinking of both the Titanic and its sister ship the Britannic","True"),\par
+                ("The Holy Roman Empire still existed when the US was founded","True"),\par
+                ("More time separates Tyrannosaurus rex from Stegosaurus than T rex from humans today","True"),\par
+                ("Nintendo was founded in the year eighteen hundred and eight nine","True"),\par
+                ("Nearly the entire continent of South America is located east of Florida","True"),\par
+                ("Cleopatra lived closer to the release of the first iPhone than she did to the building of the pyramids of Giza","True"),\par
+                ("Anne Frank and Martin Luther King Junior were born in the same year","True"),\par
+                ("A chicken lived without a head for eighteen months","True"),\par
+                ("There is a species of shark that can live for around five hundred years","True"),\par
+                ("The Guinness Book of World Records was created to settle bar arguments","True"),\par
+                ("Some turkeys can spontaneously impregnate themselves through a process called Parthenogenesis","True"),\par
+                ("Aphids give birth to other pregnant aphids","True"),\par
+                ("A Mantis Shrimp can punch with the force of a twent two caliber bullet","True"),\par
+                ("One teaspoon of a neutron star is equal to the weight of about nine hundred  Pyramids of Giza","True"),\par
+                ("France executed the last person by guillotine as recently as the same year Star Wars  A New Hope came out","True"),         \par
+                ("In a room of twenty three people there\rquote s a better than 50 percent chance that two people have the same birth date","True"),\par
+                ("Betty White is older than sliced bread","True"),\par
+                ("Gary Oldman is younger than Gary Numan","True"),\par
+                ("The US Air Force lost a nuclear bomb somewhere off the coast of Georgia","True"),\par
+                ("Cleopatra lived closer to the time Pizza Hut was founded than to when the Egyptian pyramids were built","True"),\par
+                ("Slavery was confined to the South","False"),\par
+                ("Sir Isaac Newton discovered gravity when an apple fell on his head","False"),\par
+                ("Albert Einstein failed math in school and was a terrible student","False"),\par
+                ("Convicted witches in the United States were burned at stake","False"),          \par
+                ("Adam and Eve Ate a Forbidden Fruit","True"),\par
+                ("Slaves Built the Pyramids","False"),\par
+                ("Alcohol Kills Brain Cells","False"),\par
+                ("Bananas Grow on Trees","False"),\par
+                ("Bananas Grow on Massive Herbs","True"),\par
+                ("Vaccines Cause Autism","False"),\par
+                ("Police requires twenty four hours of waiting period before accepting a missing persons report","False"),\par
+                ("Napoleon was Short","False"),\par
+                ("We have Only five Sense Organs","False"),\par
+                ("Black Holes are actually Holes","False"),\par
+                ("Black Holes have Massive Gravitational Pull and Hugely Dense","True"),\par
+                ("Bulls Hate Red","False"),\par
+                ("Einstein Failed Math","False"),\par
+                ("Caffeine Dehydrates You","False"),\par
+                ("If you can hold your breath for ten seconds, without coughing or difficulty in breathing it indicates the absence of Corona Virus infection.","False"),\par
+                ("You can beat the Virus with warm water or salt and vinegar","False"),\par
+                ("Before Corona Virus reaches your lungs it will remain in throat for four days and during this time the person feels throat pain","False"),\par
+                (" China\rquote s whistleblower doctor proposed a cure in his case file before his unfortunate demise. ","False"),\par
+               \par
+                ("Aside from washing your hands frequently use Betadine Sore Throat Gargle to eliminate or minimise the germs while they are still in your throat","False"),\par
+                ("Avoid eating meat until Corona Virus exists","False"),\par
+                ("The Chinese Government is shooting corona Virus infected people","False"),\par
+                ("Everyone should ensure their mouth and throat are moist and never dry as  drinking water or other liquids will wash  the Corona Virus","Flase"),\par
+               \par
+                ("Homeopathic drug Arsenicum album thirty is reccomended for prevention of Coronavirus infection","False"),\par
+                ("Boiled garlic water is good for treating Corona Virus","False"),\par
+                ("Inhaling steam from boiling sea salt and orange peelings for fifteen minutes can prevent Corona Virus from entering the body","False"),\par
+                ("Russia has deployed hundreds of lions to maintain lockdown order","False"),\par
+                ("Drinking Bitter Guard Juice Will cause the Corona Virus to fade away","False"),\par
+                ("Pakistani Prime Minister has been infected by the novel  Corona Virus","False"),\par
+               \par
+                ("Prime Minister Modi Announces Internet Shut Down for one week to avoid panic in people due to Fake Messages on Social Media Platforms","False"),\par
+                ("Posting anything related to Corona Virus on social media has been declared a punishable offence","False"),\par
+                ("BBMP is urging people not to get out of their houses after 10 PM and stay at home till Five AM as there will be spraying of medicine in the air to kill Corona Virus","False"),\par
+                ("Wear surgical masks in reverse to make them fully effective in protecting you from Corona Virus","False"),\par
+                ("Mustard oil can prevent Corona Virus","False"),\par
+                ("Prince of Wales Charles has contacted Corona Virus ","False"),\par
+               \par
+                ('Because of the steps we took, there are about 2 million Americans working right now who would otherwise be unemployed.', 'true'),\par
+    ('Scientists project that the Arctic will be ice-free in the summer of 2018', 'false'),\par
+    ("You cannot build a little guy up by tearing a big guy down -- Abraham Lincoln said it.", 'false'),\par
+    ("One man opposed a flawed strategy in Iraq. One man had the courage to call for change. One man didn't play politics with the truth.", 'true'),\par
+    ('When I was governor, not only did test scores improve we also narrowed the achievement gap.', 'true'),\par
+    ("Ukraine was a nuclear-armed state. They gave away their nuclear arms with the understanding that we would protect them.", 'false'),\par
+    ("Floods\~occured in\~Brahmaputra River\~in the state of\~Assam.", "True"),\par
+(" On August 5, Narendra Modi performed Bhoomi Pujan and laid the foundation stone of the\~Ram Temple at Ayodhya.", "True"),\par
+('A major fire broke out in an underground hydroelectric power plant\~in\~Srisailam\~in the state of\~Telangana\~killing 9 people.', 'True'),\par
+('Indore, Madhya Pradesh is the cleanest city in India.' , 'True')]\par
+\par
+\par
+    print("Welcome to Fake App !")\par
+    print("_____________________")\par
+    print(" Training ...")\par
+    time.sleep(1)\par
+    cl = NaiveBayesClassifier(train)\par
+    print(" Testing ...")\par
+    time.sleep(2)\par
+    print("your test accuracy is ",cl.accuracy(test))\par
+    print("_____________________")\par
+    time.sleep(1)\par
+\par
+    userMessage = input("Enter your Message : ")\par
+    result = cl.classify(userMessage)\par
+    while(len(userMessage) <= 2):\par
+        print("its not a sentence , please enter sentence")\par
+        userMessage = input("Enter your Message : ")\par
+        result = cl.classify(userMessage)\par
+\par
+\par
+    print("The Given Message is ",result)\par
+    # print(len(userMessage))\par
+    # print("The Given Message is ",result)\par
+\par
+detector()\par
+\f0\par
+}
+ 
