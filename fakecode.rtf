@@ -1,88 +1,83 @@
-{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil Calibri;}}
-{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
-\pard\sa200\sl276\slmult1\f0\fs22\lang9 from textblob.classifiers import NaiveBayesClassifier\par
-from textblob import TextBlob\par
-import time\par
-\par
-\par
-# train = [\par
-#     ('I love this sandwich.', 'pos'),\par
-#     ('this is an amazing place!', 'pos'),\par
-#     ('I feel very good about these beers.', 'pos'),\par
-#     ('this is my best work.', 'pos'),\par
-#     ("what an awesome view", 'pos'),\par
-#     ('I do not like this restaurant', 'neg'),\par
-#     ('I am tired of this stuff.', 'neg'),\par
-#     ("I can't deal with this", 'neg'),\par
-#     ('he is my sworn enemy!', 'neg'),\par
-#     ('my boss is horrible.', 'neg')\par
-#  ]\par
-# test = [\par
-#     ('the beer was good.', 'pos'),\par
-#     ('I do not enjoy my job', 'neg'),\par
-#     ("I ain't feeling dandy today.", 'neg'),\par
-#     ("I feel amazing!", 'pos'),\par
-#     ('Gary is a friend of mine.', 'pos'),\par
-#     ("I can't believe I'm doing this.", 'neg')\par
-#  ]\par
-\par
-\par
-def detector():\par
-\par
-    train = [\par
-\par
-                ('Says the Annies List political group supports third-trimester abortions on demand.', 'false'),\par
-                ('Donald Trump is against marriage equality. He wants to go back.', 'true'),\par
-                ('Says nearly half of Oregons children are poor.', 'true'),\par
-                ('State revenue projections have missed the mark month after month.', 'true'),\par
-                ("In the month of January, Canada created more new jobs than we did.", 'true'),\par
-                ('If people work and make more money, they lose more in benefits than they would earn in salary.', 'false'),\par
-                ('Originally, Democrats promised that if you liked your health care plan, you could keep it. One year later we know that you need a waiver to keep your plan.', 'false'),\par
-                ("We spend more money on antacids than we do on politics.", 'false'),\par
-                ('Barack Obama and Joe Biden oppose new drilling at home and oppose nuclear power.', 'false'),\par
-                ('President Obama once said he wants everybody in America to go to college.', 'false'),\par
-                ("Hair and fingernails continue to grow after death","False"),\par
-                ("Pineapples take two years to grow","True"),\par
-                ("There are more tigers in captivity in the US than in the wild worldwide","True"),\par
-                ("A typical cumulus cloud weighs about one million one hundred thousand pounds","True"),\par
-                ("Cheetahs cannot roar they can only meow like domestic house cats","True"),\par
-                ("Maine is the closest US state to the continent of Africa","True"),\par
-                ("Scientists who work with cockroaches often become allergic to preground coffee","True"),\par
-                ("You can see The Great Wall of China from Space","False"),\par
-                ("Cracking your knuckles will give you arthritis","False"),\par
-                ("Around the world many militaries have trained combat dolphins to perform dangerous tasks like locating underwater mines","True"),\par
-                ("Bananas are berries","True"),\par
-                ("Strawberries are not Berries","True"),\par
+from textblob.classifiers import NaiveBayesClassifier\par
+from textblob import TextBlob
+import time
+# train = [
+#     ('I love this sandwich.', 'pos'),
+#     ('this is an amazing place!', 'pos'),
+#     ('I feel very good about these beers.', 'pos'),
+#     ('this is my best work.', 'pos'),
+#     ("what an awesome view", 'pos'),
+#     ('I do not like this restaurant', 'neg'),
+#     ('I am tired of this stuff.', 'neg'),
+#     ("I can't deal with this", 'neg'),
+#     ('he is my sworn enemy!', 'neg'),
+#     ('my boss is horrible.', 'neg')
+#  ]
+# test = [
+#     ('the beer was good.', 'pos'),
+#     ('I do not enjoy my job', 'neg'),
+#     ("I ain't feeling dandy today.", 'neg'),
+#     ("I feel amazing!", 'pos'),
+#     ('Gary is a friend of mine.', 'pos'),
+#     ("I can't believe I'm doing this.", 'neg')
+#  ]
+
+def detector():
+
+    train = [
+
+                ('Says the Annies List political group supports third-trimester abortions on demand.', 'false'),
+                ('Donald Trump is against marriage equality. He wants to go back.', 'true'),
+                ('Says nearly half of Oregons children are poor.', 'true'),
+                ('State revenue projections have missed the mark month after month.', 'true'),
+                ("In the month of January, Canada created more new jobs than we did.", 'true'),
+                ('If people work and make more money, they lose more in benefits than they would earn in salary.', 'false'),
+                ('Originally, Democrats promised that if you liked your health care plan, you could keep it. One year later we know that you need a waiver to keep your plan.', 'false'),
+                ("We spend more money on antacids than we do on politics.", 'false'),
+                ('Barack Obama and Joe Biden oppose new drilling at home and oppose nuclear power.', 'false'),
+                ('President Obama once said he wants everybody in America to go to college.', 'false'),
+                ("Hair and fingernails continue to grow after death","False"),
+                ("Pineapples take two years to grow","True"),
+                ("There are more tigers in captivity in the US than in the wild worldwide","True"),
+                ("A typical cumulus cloud weighs about one million one hundred thousand pounds","True"),
+                ("Cheetahs cannot roar they can only meow like domestic house cats","True"),
+                ("Maine is the closest US state to the continent of Africa","True"),
+                ("Scientists who work with cockroaches often become allergic to preground coffee","True"),
+                ("You can see The Great Wall of China from Space","False"),
+                ("Cracking your knuckles will give you arthritis","False"),
+                ("Around the world many militaries have trained combat dolphins to perform dangerous tasks like locating underwater mines","True"),
+                ("Bananas are berries","True"),
+                ("Strawberries are not Berries","True"),
                 ("Sharks Predate Trees","True"),\par
-                ("A bear that fought with Poland in World War II was promoted to the rank of a corporal","True"),\par
-                ("There are more trees on earth than there are stars in the galaxy","True"),\par
-                ("Harvard was founded before calculus was created","True"),\par
-                ("Oxford University is older than the Aztec Empire","True"),\par
-                ("More people live in Bangladesh than in Russia","True"),\par
-                ("Raindrops are tear shaped.","False"),\par
-                ("You cannot start a sentence with a conjunction","False"),\par
-                ("Deoxygenated blood is blue","False"),\par
-                ("Humans only use ten percent of their brains","False"),\par
-                ("Bats are blind","False"),\par
-                ("An apple a day keeps the doctor away","False"),\par
-                ("Adam and Eve Ate an Apple","True"),\par
-                ("Weed Kills Corona Virus","False"),\par
-                ("Dettol and Lizol can kill Corona Virus","False"),\par
-                ("Consumption of Santizer is advised to kill Corona Virus","False"),\par
-                 ("Stomach acid will kill all the viruses","False"),\par
-                ("Slices of lemon in a cup of lukewarm water can save your life ","False"),\par
-                ("Ginger is the miracle cure for Corona Virus ","False"),\par
-                ("Cutting onions into small pieces and eating without water can cure Corona Virus ","False"),\par
-                 ("Corona Virus vaccine is ready and will be launched by the pharmaceutical giant Roche by next Sunday","False"),\par
-                ("Clapping or  shankh vibrations will destroy Virus potency ","False"),\par
-                 ("Corona Virus Virus will be killed at a temperature of thirty to thirty five degrees", "False"),\par
-                ("Drinking more hot water and going under the sun for a long time will prevent Corona","False"),\par
-                ("Drinking warm water is effective for mostly all viruses","False"),\par
-                ("Drinking Cold items or Ice will lead you to Corona" ,"False"),\par
-                ("Cashews grow on the bottom of a fruit called a cashew apple","True"),\par
-                ("Honey Never Expires","True"),\par
-                ("Baby Carrots were invented in the year nineteen eighty six","True"),\par
-                ("Chameleons change colors to camouflage themselves","False"),\par
+                ("A bear that fought with Poland in World War II was promoted to the rank of a corporal","True"),
+                ("There are more trees on earth than there are stars in the galaxy","True"),
+                ("Harvard was founded before calculus was created","True"),
+                ("Oxford University is older than the Aztec Empire","True"),
+                ("More people live in Bangladesh than in Russia","True"),
+                ("Raindrops are tear shaped.","False"),
+                ("You cannot start a sentence with a conjunction","False"),
+                ("Deoxygenated blood is blue","False"),
+                ("Humans only use ten percent of their brains","False"),
+                ("Bats are blind","False"),
+                ("An apple a day keeps the doctor away","False"),
+                ("Adam and Eve Ate an Apple","True"),
+                ("Weed Kills Corona Virus","False"),
+                ("Dettol and Lizol can kill Corona Virus","False"),
+                ("Consumption of Santizer is advised to kill Corona Virus","False"),
+                 ("Stomach acid will kill all the viruses","False"),
+                ("Slices of lemon in a cup of lukewarm water can save your life ","False"),
+                ("Ginger is the miracle cure for Corona Virus ","False"),
+                ("Cutting onions into small pieces and eating without water can cure Corona Virus ","False"),
+                 ("Corona Virus vaccine is ready and will be launched by the pharmaceutical giant Roche by next Sunday","False"),
+                ("Clapping or  shankh vibrations will destroy Virus potency ","False"),
+                 ("Corona Virus Virus will be killed at a temperature of thirty to thirty five degrees", "False"),
+                ("Drinking more hot water and going under the sun for a long time will prevent Corona","False"),
+                ("Drinking warm water is effective for mostly all viruses","False"),
+                ("Drinking Cold items or Ice will lead you to Corona" ,"False"),
+                ("Cashews grow on the bottom of a fruit called a cashew apple","True"),
+                ("Honey Never Expires","True"),
+                ("Baby Carrots were invented in the year nineteen eighty six","True"),
+                ("Chameleons change colors to camouflage themselves","False"),
                 ("Christopher Columbus discovered America","False"),\par
                 ("Abraham Lincoln freed the slaves","False"),\par
                   ("Goldfish has a three second memory","False"),\par
@@ -184,34 +179,30 @@ def detector():\par
     ("Ukraine was a nuclear-armed state. They gave away their nuclear arms with the understanding that we would protect them.", 'false'),\par
     ("Floods\~occured in\~Brahmaputra River\~in the state of\~Assam.", "True"),\par
 (" On August 5, Narendra Modi performed Bhoomi Pujan and laid the foundation stone of the\~Ram Temple at Ayodhya.", "True"),\par
-('A major fire broke out in an underground hydroelectric power plant\~in\~Srisailam\~in the state of\~Telangana\~killing 9 people.', 'True'),\par
-('Indore, Madhya Pradesh is the cleanest city in India.' , 'True')]\par
-\par
-\par
-    print("Welcome to Fake App !")\par
-    print("_____________________")\par
-    print(" Training ...")\par
-    time.sleep(1)\par
-    cl = NaiveBayesClassifier(train)\par
-    print(" Testing ...")\par
-    time.sleep(2)\par
-    print("your test accuracy is ",cl.accuracy(test))\par
-    print("_____________________")\par
-    time.sleep(1)\par
-\par
-    userMessage = input("Enter your Message : ")\par
-    result = cl.classify(userMessage)\par
-    while(len(userMessage) <= 2):\par
-        print("its not a sentence , please enter sentence")\par
-        userMessage = input("Enter your Message : ")\par
-        result = cl.classify(userMessage)\par
-\par
-\par
-    print("The Given Message is ",result)\par
-    # print(len(userMessage))\par
-    # print("The Given Message is ",result)\par
-\par
-detector()\par
-\f0\par
+('A major fire broke out in an underground hydroelectric power plant\~in\~Srisailam\~in the state of\~Telangana\~killing 9 people.', 'True'),
+('Indore, Madhya Pradesh is the cleanest city in India.' , 'True')]
+
+    print("Welcome to Fake App !")
+    print("_____________________")
+    print(" Training ...")
+    time.sleep(1)
+    cl = NaiveBayesClassifier(train)
+    print(" Testing ...")
+    time.sleep(2)
+    print("your test accuracy is ",cl.accuracy(test))
+    print("_____________________")
+    time.sleep(1)
+    
+    userMessage = input("Enter your Message : ")
+    result = cl.classify(userMessage)
+    while(len(userMessage) <= 2):
+        print("its not a sentence , please enter sentence")
+        userMessage = input("Enter your Message : ")
+        result = cl.classify(userMessage)
+        
+    print("The Given Message is ",result)
+    # print(len(userMessage))
+    # print("The Given Message is ",result)
+
+detector()
 }
- 
